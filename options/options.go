@@ -13,13 +13,17 @@ type Option struct {
 var (
 	Options = map[string]Option{
 		"home": {"Home", "", screens.HomeScreen},
-		"legacy": {"Legacy TX",
+		"legacy": {"Legacy Tx",
 			"Send a type 0x0 transaction.",
 			screens.LegacyScreen,
+		},
+		"dynamic_fee": {"Dynamic Fee Tx",
+			"Send a type 0x2 transaction.",
+			screens.DynamicFeeScreen,
 		},
 	}
 
 	OptionIndex = map[string][]string{
-		"": {"home", "legacy"},
+		"": {"home", "legacy", "dynamic_fee"},
 	}
 )
