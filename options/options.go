@@ -21,9 +21,13 @@ var (
 			"Send a type 0x2 transaction.",
 			screens.DynamicFeeScreen,
 		},
+		"blob": {"Blob Tx",
+			"Send a type 0x3 transaction.",
+			screens.BlobScreen,
+		},
 	}
 
 	OptionIndex = map[string][]string{
-		"": {"home", "legacy", "dynamic_fee"},
+		"": {"home", "legacy", "dynamic_fee", "blob"},
 	}
 )
