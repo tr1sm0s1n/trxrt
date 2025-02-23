@@ -30,12 +30,12 @@ func LegacyScreen(w fyne.Window) fyne.CanvasObject {
 	var g float64 = 20000
 	gas := binding.BindFloat(&g)
 	gasEntry := widget.NewEntryWithData(binding.FloatToString(gas))
-	gasEntry.Validator = validation.NewRegexp(`^([1-9]\d{0,5}|1000000)$`, "Not a valid gas limit.")
+	gasEntry.Validator = validation.NewRegexp(`^([1-9]\d{0,4}|100000)$`, "Not a valid gas limit.")
 	gasEntry.OnChanged = func(t string) {
 		gasEntry.SetText(strings.Split(t, ".")[0])
 	}
-	gasSlide := widget.NewSliderWithData(0, 1000000, gas)
-	gasSlide.Step = 500
+	gasSlide := widget.NewSliderWithData(0, 100000, gas)
+	gasSlide.Step = 1000
 
 	var gp float64 = 1
 	gasPrice := binding.BindFloat(&gp)
