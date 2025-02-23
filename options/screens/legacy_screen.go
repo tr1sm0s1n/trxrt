@@ -80,7 +80,7 @@ func LegacyScreen(w fyne.Window) fyne.CanvasObject {
 			}
 
 			amountInt, _ := strconv.Atoi(amountEntry.Text)
-			if err = api.LegacyTx(client, keyEntry.Text, receiverEntry.Text, int64(amountInt)); err != nil {
+			if err = api.LegacyTx(client, keyEntry.Text, receiverEntry.Text, int64(amountInt), g, gp); err != nil {
 				loading.Hide()
 				form.Enable()
 				dialog.ShowInformation("Error", err.Error(), w)
