@@ -11,7 +11,7 @@ import (
 	"github.com/tr1sm0s1n/project-wallet-x/helpers"
 )
 
-func DynamicFeeTx(client *ethclient.Client, key string, to string, amount int64) error {
+func DynamicFeeTx(client *ethclient.Client, key string, to string, amount int64, gas, maxFee, maxPriorityFee float64) error {
 	log.Println("\033[32m>>> Type 0x2 Transaction: BEGIN <<<\033[0m")
 
 	pkey, from, err := helpers.InitializeAccount(key)
@@ -36,9 +36,9 @@ func DynamicFeeTx(client *ethclient.Client, key string, to string, amount int64)
 	signedTx, _ := types.SignNewTx(pkey, types.LatestSignerForChainID(chainID), &types.DynamicFeeTx{
 		Nonce:     nonce,
 		To:        &receiver,
-		GasTipCap: big.NewInt(1000000),
-		GasFeeCap: big.NewInt(1000000000),
-		Gas:       21000,
+		GasTipCap: big.NewInt(int64(maxPriorityFee)),
+		GasFeeCap: big.NewInt(int64(maxFee * 1000000000)),
+		Gas:       uint64(gas),
 		Value:     new(big.Int).Mul(new(big.Int).Exp(big.NewInt(10), big.NewInt(18), nil), big.NewInt(amount)),
 		Data:      nil,
 	})
