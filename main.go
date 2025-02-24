@@ -65,9 +65,9 @@ func main() {
 	tutorial := container.NewBorder(
 		container.NewVBox(title, widget.NewSeparator(), intro), nil, nil, nil, content)
 	if fyne.CurrentDevice().IsMobile() {
-		w.SetContent(makeNav(setTutorial, false))
+		w.SetContent(makeNav(setTutorial, false, w))
 	} else {
-		split := container.NewHSplit(makeNav(setTutorial, true), tutorial)
+		split := container.NewHSplit(makeNav(setTutorial, true, w), tutorial)
 		split.Offset = 0.2
 		w.SetContent(split)
 	}
@@ -202,7 +202,7 @@ func makeTray(a fyne.App) {
 	}
 }
 
-func makeNav(setTutorial func(tutorial options.Option), loadPrevious bool) fyne.CanvasObject {
+func makeNav(setTutorial func(tutorial options.Option), loadPrevious bool, w fyne.Window) fyne.CanvasObject {
 	a := fyne.CurrentApp()
 
 	tree := &widget.Tree{
@@ -247,7 +247,11 @@ func makeNav(setTutorial func(tutorial options.Option), loadPrevious bool) fyne.
 		}),
 	)
 
-	return container.NewBorder(nil, themes, nil, nil, tree)
+	bottom := container.NewVBox(themes, widget.NewButton("Fullscreen", func() {
+		w.SetFullScreen(!w.FullScreen())
+	}))
+
+	return container.NewBorder(nil, bottom, nil, nil, tree)
 }
 
 func shortcutFocused(s fyne.Shortcut, w fyne.Window) {
