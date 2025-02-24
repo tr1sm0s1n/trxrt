@@ -12,14 +12,21 @@ import (
 	"github.com/tr1sm0s1n/project-wallet-x/helpers"
 )
 
-func BlobTx(client *ethclient.Client, key, to, data string) error {
+func BlobTx(client *ethclient.Client, key, to string, data []string, gas, maxFee, maxPriorityFee, blobFee float64) error {
 	log.Println("\033[32m>>> Type 0x3 Transaction: BEGIN <<<\033[0m")
 
-	blob := new(kzg4844.Blob)
-	copy(blob[:], []byte(data))
+	var sidecar types.BlobTxSidecar
+	for i := range min(len(data), 6) {
+		blob := new(kzg4844.Blob)
+		copy(blob[:], []byte(data[i]))
 
-	blobCommit, _ := kzg4844.BlobToCommitment(blob)
-	blobProof, _ := kzg4844.ComputeBlobProof(blob, blobCommit)
+		blobCommit, _ := kzg4844.BlobToCommitment(blob)
+		blobProof, _ := kzg4844.ComputeBlobProof(blob, blobCommit)
+
+		sidecar.Blobs = append(sidecar.Blobs, *blob)
+		sidecar.Commitments = append(sidecar.Commitments, blobCommit)
+		sidecar.Proofs = append(sidecar.Proofs, blobProof)
+	}
 
 	pkey, from, err := helpers.InitializeAccount(key)
 	if err != nil {
@@ -40,21 +47,15 @@ func BlobTx(client *ethclient.Client, key, to, data string) error {
 	}
 
 	receiver := common.HexToAddress(to)
-	sidecar := &types.BlobTxSidecar{
-		Blobs:       []kzg4844.Blob{*blob},
-		Commitments: []kzg4844.Commitment{blobCommit},
-		Proofs:      []kzg4844.Proof{blobProof},
-	}
-
 	signedTx, _ := types.SignNewTx(pkey, types.LatestSignerForChainID(chainID), &types.BlobTx{
 		Nonce:      nonce,
 		To:         receiver,
-		GasTipCap:  uint256.NewInt(1000000),
-		GasFeeCap:  uint256.NewInt(1000000000),
-		Gas:        21000,
-		BlobFeeCap: uint256.NewInt(15),
+		GasTipCap:  uint256.NewInt(uint64(maxPriorityFee)),
+		GasFeeCap:  uint256.NewInt(uint64(maxFee * 1000000000)),
+		Gas:        uint64(gas),
+		BlobFeeCap: uint256.NewInt(uint64(blobFee)),
 		BlobHashes: sidecar.BlobHashes(),
-		Sidecar:    sidecar,
+		Sidecar:    &sidecar,
 	})
 
 	if err = client.SendTransaction(context.Background(), signedTx); err != nil {

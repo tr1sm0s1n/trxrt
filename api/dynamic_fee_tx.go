@@ -11,7 +11,7 @@ import (
 	"github.com/tr1sm0s1n/project-wallet-x/helpers"
 )
 
-func DynamicFeeTx(client *ethclient.Client, key string, to string, amount int64, gas, maxFee, maxPriorityFee float64) error {
+func DynamicFeeTx(client *ethclient.Client, key, to string, amount int64, gas, maxFee, maxPriorityFee float64) error {
 	log.Println("\033[32m>>> Type 0x2 Transaction: BEGIN <<<\033[0m")
 
 	pkey, from, err := helpers.InitializeAccount(key)
