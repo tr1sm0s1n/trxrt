@@ -16,7 +16,7 @@ import (
 	"github.com/tr1sm0s1n/project-wallet-x/options"
 )
 
-const preferenceCurrentTutorial = "currentTutorial"
+const preferenceCurrentOption = "currentOption"
 
 var topWindow fyne.Window
 
@@ -35,7 +35,7 @@ func main() {
 	title := widget.NewLabel("Transaction Type")
 	intro := widget.NewLabel("Choose your transaction type\namong legacy, access list, dynamic fee, blob and set code.")
 	intro.Wrapping = fyne.TextWrapWord
-	setTutorial := func(t options.Option) {
+	setOption := func(t options.Option) {
 		if fyne.CurrentDevice().IsMobile() {
 			child := a.NewWindow(t.Title)
 			topWindow = child
@@ -62,12 +62,12 @@ func main() {
 		content.Refresh()
 	}
 
-	tutorial := container.NewBorder(
+	option := container.NewBorder(
 		container.NewVBox(title, widget.NewSeparator(), intro), nil, nil, nil, content)
 	if fyne.CurrentDevice().IsMobile() {
-		w.SetContent(makeNav(setTutorial, false, w))
+		w.SetContent(makeNav(setOption, false, w))
 	} else {
-		split := container.NewHSplit(makeNav(setTutorial, true, w), tutorial)
+		split := container.NewHSplit(makeNav(setOption, true, w), option)
 		split.Offset = 0.2
 		w.SetContent(split)
 	}
@@ -202,7 +202,7 @@ func makeTray(a fyne.App) {
 	}
 }
 
-func makeNav(setTutorial func(tutorial options.Option), loadPrevious bool, w fyne.Window) fyne.CanvasObject {
+func makeNav(setOption func(option options.Option), loadPrevious bool, w fyne.Window) fyne.CanvasObject {
 	a := fyne.CurrentApp()
 
 	tree := &widget.Tree{
@@ -220,21 +220,21 @@ func makeNav(setTutorial func(tutorial options.Option), loadPrevious bool, w fyn
 		UpdateNode: func(uid string, branch bool, obj fyne.CanvasObject) {
 			t, ok := options.Options[uid]
 			if !ok {
-				fyne.LogError("Missing tutorial panel: "+uid, nil)
+				fyne.LogError("Missing option panel: "+uid, nil)
 				return
 			}
 			obj.(*widget.Label).SetText(t.Title)
 		},
 		OnSelected: func(uid string) {
 			if t, ok := options.Options[uid]; ok {
-				a.Preferences().SetString(preferenceCurrentTutorial, uid)
-				setTutorial(t)
+				a.Preferences().SetString(preferenceCurrentOption, uid)
+				setOption(t)
 			}
 		},
 	}
 
 	if loadPrevious {
-		currentPref := a.Preferences().StringWithFallback(preferenceCurrentTutorial, "welcome")
+		currentPref := a.Preferences().StringWithFallback(preferenceCurrentOption, "welcome")
 		tree.Select(currentPref)
 	}
 
