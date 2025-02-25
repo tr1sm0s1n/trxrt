@@ -20,7 +20,7 @@ func BlobScreen(w fyne.Window) fyne.CanvasObject {
 	keyEntry.Validator = validation.NewRegexp(`^[0-9a-fA-F]{64}$`, "Not a valid key.")
 
 	receiverEntry := widget.NewEntry()
-	receiverEntry.SetPlaceHolder("Ox...")
+	receiverEntry.SetPlaceHolder("0x...")
 	receiverEntry.Validator = validation.NewRegexp(`^0x[0-9a-fA-F]{40}$`, "Not a valid address.")
 
 	var g float64 = 20000
