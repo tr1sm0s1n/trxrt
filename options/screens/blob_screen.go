@@ -10,8 +10,8 @@ import (
 	"fyne.io/fyne/v2/data/validation"
 	"fyne.io/fyne/v2/dialog"
 	"fyne.io/fyne/v2/widget"
-	"github.com/tr1sm0s1n/project-wallet-x/api"
-	"github.com/tr1sm0s1n/project-wallet-x/config"
+	"github.com/tr1sm0s1n/trxrt/api"
+	"github.com/tr1sm0s1n/trxrt/config"
 )
 
 func BlobScreen(w fyne.Window) fyne.CanvasObject {

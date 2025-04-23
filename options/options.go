@@ -2,7 +2,7 @@ package options
 
 import (
 	"fyne.io/fyne/v2"
-	"github.com/tr1sm0s1n/project-wallet-x/options/screens"
+	"github.com/tr1sm0s1n/trxrt/options/screens"
 )
 
 type Option struct {

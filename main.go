@@ -10,7 +10,7 @@ import (
 	"fyne.io/fyne/v2/driver/desktop"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
-	"github.com/tr1sm0s1n/project-wallet-x/options"
+	"github.com/tr1sm0s1n/trxrt/options"
 )
 
 const preferenceCurrentOption = "currentOption"
@@ -22,7 +22,7 @@ func main() {
 	// a.SetIcon(data.FyneLogo)
 	makeTray(a)
 	logLifecycle(a)
-	w := a.NewWindow("Wallet-X")
+	w := a.NewWindow("TrXrT")
 	topWindow = w
 
 	w.SetMaster()
@@ -88,9 +88,9 @@ func logLifecycle(a fyne.App) {
 
 func makeTray(a fyne.App) {
 	if desk, ok := a.(desktop.App); ok {
-		h := fyne.NewMenuItem("Wallet-X", func() {})
+		h := fyne.NewMenuItem("TrXrT", func() {})
 		h.Icon = theme.HomeIcon()
-		menu := fyne.NewMenu("Wallet-X", h)
+		menu := fyne.NewMenu("TrXrT", h)
 		h.Action = func() {
 			log.Println("System tray menu tapped")
 			h.Label = "Welcome"

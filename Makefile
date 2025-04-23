@@ -11,7 +11,7 @@ run:
 	@$(GO) run .
 
 build:
-	@$(GO) build -o ./bin/wallet-x
+	@$(GO) build -o ./bin/trxrt
 
 fyne-cmd:
 	@GOBIN=$(BIN_DIR) $(GO) install fyne.io/fyne/v2/cmd/fyne@latest

@@ -1,4 +1,4 @@
-module github.com/tr1sm0s1n/project-wallet-x
+module github.com/tr1sm0s1n/trxrt
 
 go 1.24.0
 

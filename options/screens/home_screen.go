@@ -40,7 +40,7 @@ func HomeScreen(_ fyne.Window) fyne.CanvasObject {
 
 	// authors := widget.NewRichTextFromMarkdown(formatAuthors(string(data.Authors.Content())))
 	content := container.NewVBox(
-		widget.NewLabelWithStyle("\n\nWelcome to Wallet-X", fyne.TextAlignCenter, fyne.TextStyle{Bold: true}),
+		widget.NewLabelWithStyle("\n\nWelcome to TrXrT", fyne.TextAlignCenter, fyne.TextStyle{Bold: true}),
 		// logo,
 		// container.NewCenter(authors),
 		widget.NewLabelWithStyle("\nWith great thanks to my many kind mentors. :)\n", fyne.TextAlignCenter, fyne.TextStyle{Italic: true}))

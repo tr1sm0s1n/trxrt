@@ -8,7 +8,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/tr1sm0s1n/project-wallet-x/helpers"
+	"github.com/tr1sm0s1n/trxrt/helpers"
 )
 
 func LegacyTx(client *ethclient.Client, key, to string, amount int64, gas, gasPrice float64) error {
