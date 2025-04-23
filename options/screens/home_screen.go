@@ -3,7 +3,6 @@ package screens
 import (
 	"image/color"
 	"net/url"
-	"strings"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
@@ -126,21 +125,4 @@ func (u unpad) Layout(objs []fyne.CanvasObject, s fyne.Size) {
 
 func (u unpad) MinSize(_ []fyne.CanvasObject) fyne.Size {
 	return fyne.NewSize(100, 100)
-}
-
-func formatAuthors(lines string) string {
-	markdown := &strings.Builder{}
-	markdown.WriteString("### Authors\n\n")
-
-	for _, line := range strings.Split(lines, "\n") {
-		if len(line) == 0 {
-			continue
-		}
-
-		markdown.WriteString("* ")
-		markdown.WriteString(line)
-		markdown.WriteByte('\n')
-	}
-
-	return markdown.String()
 }
