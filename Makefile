@@ -4,14 +4,15 @@ GOFMT ?= gofmt "-s"
 GOFILES := $(shell find . -name "*.go")
 CURRENT_DIR = $(shell pwd)
 BIN_DIR = $(CURRENT_DIR)/bin
+RPC_URL = "http://127.0.0.1:8545"
 
 .PHONY: run build fyne-cmd lint tidy fmt
 
 run:
-	@$(GO) run .
+	@env "RPC_URL=$(RPC_URL)" $(GO) run .
 
 build:
-	@$(GO) build -o ./bin/trxrt
+	@env "RPC_URL=$(RPC_URL)" $(GO) build -o ./bin/trxrt
 
 fyne-cmd:
 	@GOBIN=$(BIN_DIR) $(GO) install fyne.io/fyne/v2/cmd/fyne@latest

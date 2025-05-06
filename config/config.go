@@ -1,11 +1,13 @@
 package config
 
 import (
+	"os"
+
 	"github.com/ethereum/go-ethereum/ethclient"
 )
 
 func DialClient() (*ethclient.Client, error) {
-	eth, err := ethclient.Dial("http://127.0.0.1:8545")
+	eth, err := ethclient.Dial(os.Getenv("RPC_URL"))
 	if err != nil {
 		return nil, err
 	}
