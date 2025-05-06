@@ -19,7 +19,7 @@ fyne-cmd:
 lint:
 	@if [ ! -f "$(BIN_DIR)/golangci-lint" ]; then \
 		echo "Installing golangci-lint..."; \
-		GOBIN=$(BIN_DIR) $(GO) install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest; \
+		curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/HEAD/install.sh | sh -s latest; \
 	fi
 	@$(BIN_DIR)/golangci-lint run
 
