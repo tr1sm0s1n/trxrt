@@ -6,7 +6,11 @@ CURRENT_DIR = $(shell pwd)
 BIN_DIR = $(CURRENT_DIR)/bin
 RPC_URL = "http://127.0.0.1:8545"
 
-.PHONY: run build fyne-cmd lint tidy fmt help
+.PHONY: install run build fyne-cmd lint tidy fmt help
+
+#? install: Install prerequisites.
+install:
+	@sudo apt-get install gcc libgl1-mesa-dev xorg-dev libxkbcommon-dev
 
 #? run: Run TrXrT.
 run:
